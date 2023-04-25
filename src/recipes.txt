@@ -1,0 +1,4 @@
+ recipes: [
+        {id:1, name:'Meatball Sub' ,ingredients: ['milk','tomato','onion','egg','beef'],type: "Comfort Food" },
+        {id:2, name:'Fish Taco Salad Bowl', ingredients: ['fish','cucumber','salad','onion'],type: "Easy Cook" }
+    ]
