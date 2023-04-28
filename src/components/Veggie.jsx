@@ -14,7 +14,7 @@ function Veggie() {
           );
           const data = await api.json();
           setVeggie(data.recipes)
-          console.log(data)
+            
           
         }
   return (
@@ -22,7 +22,7 @@ function Veggie() {
     <h1>Veggie Recipes: </h1>
     <ul className="recipes">
       {veggie.map((recipe) => {
-        console.log(recipe)
+
         return (
           <Card className="recipeItem" sx={{maxWidth:500, marginRight:15, marginBottom:5, boxShadow:1}}>
             <li key={recipe.id}>

@@ -15,7 +15,7 @@ function TopRecipes() {
     );
     const data = await api.json();
     setTopRecipes(data.recipes);
-    console.log(data);
+    console.log(data.recipes)
   };
 
   return (
