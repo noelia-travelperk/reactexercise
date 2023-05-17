@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {useParams} from "react-router-dom";
 import axios from 'axios';
+import "../style/UpdateRecipe.css"
 
 const UpdateRecipe = () => {
     const [recipeTitle, setrecipeTitle] = useState('');
@@ -33,18 +34,19 @@ console.log(recipe)
 
     return (
         <div>
-            <form className="create-form">
+            <h3> Update the recipe </h3>
+            <form className="form">
                 
-                    <label>recipeTitle</label>
+                    <label>Title:</label>
                     <input placeholder='title' value={recipeTitle} onChange={(e) => setrecipeTitle(e.target.value)}/>
        
-                    <label>ingredients</label>
+                    <label>Ingredients:</label>
                     <input placeholder='ingredients' value={ingredients} onChange={(e) => setingredients(e.target.value)}/>
 
-                    <label>dishType</label>
+                    <label>Dish Type:</label>
                     <input placeholder='dishTypes' value={dishTypes} onChange={(e) => setdishTypes(e.target.value)}/>
 
-                    <label htmlFor="recipeImages">Image URL</label>
+                    <label htmlFor="recipeImages">Image URL:</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -54,7 +56,7 @@ console.log(recipe)
                                 value={images}
                                 onChange={(e) => setimages(e.target.value)}
                             />
-                <button onClick={(e) => updateAPIData(e)} type='submit'>Submit</button>
+                <button className="updateRecipeButtn" onClick={(e) => updateAPIData(e)} type='submit'>Submit</button>
             </form>
         </div>
     )

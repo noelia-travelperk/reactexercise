@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardMedia } from "@mui/material";
 import { Link } from "react-router-dom";
-import "../style/Recipes.css";
+import "../style/Recipes.css"
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -67,7 +67,7 @@ function Recipes() {
                   <img src={recipe.images} alt={recipe.title}></img>
                 </CardMedia>
                 <CardContent sx={{ padding: 0, marginTop: 2 }}>
-                  <p>{recipe.title}</p>
+                  <p className="recipeTitle">{recipe.title}</p>
                 </CardContent>
                 <button
                   className="deleteButton"
@@ -77,7 +77,7 @@ function Recipes() {
                 </button>
 
                 <Link to={"/updateRecipe/"+recipe.id}>
-                    <button onClick={() => setData(recipe)}>Update</button>
+                    <button className="updateButton"  onClick={() => setData(recipe)}>Update</button>
                 </Link>
               </li>
             </Card>
