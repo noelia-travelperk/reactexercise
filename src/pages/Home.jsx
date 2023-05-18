@@ -1,12 +1,11 @@
 import React from 'react'
-import AllRecipes from '../components/AllRecipes'
+import Recipes from '../components/Recipes'
 import Dropdown from '../components/Dropdown'
 
 export default function Home() {
   return (
     <div>
-
-        <AllRecipes/>
+        <Recipes/>
     </div>
   )
 }

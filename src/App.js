@@ -2,8 +2,9 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import './style/App.css';
 import Home from './pages/Home'; 
 import NavBar from './components/NavBar'
-import CreateRecipe from './pages/CreateRecipe'
-import UpdateRecipe from './pages/UpdateRecipe'
+import RecipeDetail from './components/RecipeDetails'
+import RecipePage from './pages/RecipePage';
+
 
 
 
@@ -19,11 +20,14 @@ function App() {
           </Route>
           <Route
             path="/createRecipe"
-            element={<CreateRecipe/>}>
+            element={<RecipeDetail/>}>
           </Route>
           <Route
-            path="/updateRecipe/:id"
-            element={<UpdateRecipe/>}>
+            path="/updateRecipe/:id" 
+            element={<RecipeDetail/>}>
+          </Route>
+          <Route  path="/recipes/show/:id" element={<RecipePage/>}>
+
           </Route>
           </Routes>
         </Router>
