@@ -15,13 +15,11 @@ export const getRecipeById = async (id) => {
 
 export const createRecipe = async (recipes) => {
   const response = await axios.post(`${API_BASE_URL}`, recipes);
-  console.log(recipes);
   return response.data;
 };
 
 export const updateRecipe = async (id,recipes) => {
   const response = await axios.put(`${API_BASE_URL}${id}`,recipes);
-  console.log(recipes);
   return response.data;
 };
 

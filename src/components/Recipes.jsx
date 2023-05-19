@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardMedia } from "@mui/material";
 import { Link } from "react-router-dom";
-import { getRecipes, deleteRecipe } from "../services/RecipesService";
+import { getRecipes, deleteRecipe } from "../services/Recipes";
 import styled from "styled-components";
 
+const PageTitle = styled.h1`
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+`;
 const RecipeList = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -63,7 +69,6 @@ function Recipes() {
     try {
       const data = await getRecipes();
       setRecipes(data);
-      console.log(data)
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -75,7 +80,6 @@ function Recipes() {
       setRecipes((prevRecipes) =>
         prevRecipes.filter((recipe) => recipe.id !== id)
       );
-      console.log("Recipe deleted successfully");
     } catch (error) {
       console.error("Error deleting recipe:", error);
     }
@@ -83,7 +87,7 @@ function Recipes() {
 
   return (
     <div>
-      <h1>Our Recipes: </h1>
+      <PageTitle>Our Recipes: </PageTitle>
       <RecipeList>
         {recipes.map((recipe) => {
           return (

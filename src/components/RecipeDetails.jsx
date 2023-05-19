@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  createRecipe,
-  updateRecipe,
-  getRecipeById,
-} from "../services/RecipesService";
+import { createRecipe, updateRecipe, getRecipeById } from "../services/Recipes";
 import styled from "styled-components";
 
 const FormContainer = styled.div`
@@ -105,11 +101,8 @@ export default function RecipeDetails() {
     try {
       if (id) {
         await updateRecipe(id, recipes);
-        console.log("Recipe updated successfully");
       } else {
         await createRecipe(recipes);
-        console.log("Recipe created successfully");
-        console.log(recipes);
       }
       setRecipes({
         title: "",
