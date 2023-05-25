@@ -2,8 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import RecipeDetails from "../components/RecipeDetails";
 import "@testing-library/jest-dom/extend-expect";
-import { getRecipes, createRecipe } from "../services/Recipes";
-import { BrowserRouter as Router } from "react-router-dom";
+import { getRecipes } from "../services/Recipes";
 
 jest.mock("../services/Recipes");
 
@@ -35,7 +34,7 @@ describe("Recipe Form", () => {
     const imageInput = screen.getByText("Images");
     const submitButton = screen.getByRole("button", { name: "Create" });
 
-    titleInput.textContent= "Recipe Title";
+    titleInput.textContent = "Recipe Title";
     ingredientsInput.textContent = "Ingredient 1, Ingredient 2";
     servingsInput.textContent = "4";
     instructionsInput.textContent = "Step 1, Step 2, Step 3";
@@ -49,6 +48,4 @@ describe("Recipe Form", () => {
     expect(instructionsInput).toHaveTextContent("Step 1, Step 2, Step 3");
     expect(imageInput).toHaveTextContent("recipe1.jpg");
   });
-
-
 });
