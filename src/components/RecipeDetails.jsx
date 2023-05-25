@@ -125,7 +125,7 @@ export default function RecipeDetails() {
           <Input name="title" value={recipes.title} onChange={handleChange} />
         </FormGroup>
         <FormGroup>
-          <Label>Ingredients:</Label>
+          <Label name= 'ingredients'>Ingredients:</Label>
           <Input
             name="ingredients"
             value={recipes.ingredients}
@@ -133,7 +133,7 @@ export default function RecipeDetails() {
           />
         </FormGroup>
         <FormGroup>
-          <Label>Servings:</Label>
+          <Label name= 'servings'>Servings:</Label>
           <Input
             name="servings"
             value={recipes.servings}
@@ -141,11 +141,11 @@ export default function RecipeDetails() {
           />
         </FormGroup>
         <FormGroup>
-          <Label>Images:</Label>
+          <Label text= 'images'>Images:</Label>
           <Input name="images" value={recipes.images} onChange={handleChange} />
         </FormGroup>
         <FormGroup>
-          <Label>Instructions:</Label>
+          <Label name= 'instructions'>Instructions:</Label>
           <RecipeInstructions
             name="instructions"
             value={recipes.instructions}

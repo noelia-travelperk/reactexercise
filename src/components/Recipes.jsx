@@ -6,8 +6,9 @@ import styled from "styled-components";
 
 const PageTitle = styled.h1`
   text-align: center;
+  color: #3f51b5;
   font-size: 3rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
   margin-bottom: 2rem;
 `;
 const RecipeList = styled.ul`
@@ -69,9 +70,7 @@ function Recipes() {
     try {
       const data = await getRecipes();
       setRecipes(data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
+    } catch (error) {}
   };
 
   const handleDeleteRecipe = async (id) => {
@@ -88,7 +87,7 @@ function Recipes() {
   return (
     <div>
       <PageTitle>Our Recipes: </PageTitle>
-      <RecipeList>
+      <RecipeList data-testid="recipeList">
         {recipes.map((recipe) => {
           return (
             <Card
@@ -106,9 +105,9 @@ function Recipes() {
                 "&:hover": { boxShadow: "5px 5px 10px #6a6969" },
               }}
             >
-              <RecipeItem key={recipe.id}>
+              <RecipeItem data-testid="recipeItem" key={recipe.id}>
                 <CardMedia>
-                  <img src={recipe.images} alt={recipe.title}></img>
+                  <img id="image" src={recipe.images} alt={recipe.title}></img>
                 </CardMedia>
                 <CardContent
                   sx={{
@@ -118,12 +117,8 @@ function Recipes() {
                     fontSize: 30,
                   }}
                 >
-                  <p>{recipe.title}</p>
+                  <p id="title">{recipe.title}</p>
                 </CardContent>
-
-                <Link to={"/recipes/show/" + recipe.id}>
-                  <Button>View recipe</Button>
-                </Link>
                 <DeleteButton
                   className="deleteButton"
                   onClick={() => handleDeleteRecipe(recipe.id)}
