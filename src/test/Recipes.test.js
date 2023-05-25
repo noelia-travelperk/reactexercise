@@ -1,6 +1,6 @@
 import Recipes from "../components/Recipes";
 import { getRecipes, deleteRecipe } from "../services/Recipes";
-import { render, screen, waitFor, prettyDOM } from "@testing-library/react";
+import { render, screen, waitFor, prettyDOM, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 jest.mock("../services/Recipes");
@@ -63,6 +63,19 @@ describe("<Recipes />", () => {
     // Wait for the recipe to be removed from the DOM
     await waitFor(() => {
       expect(screen.queryByText(mockRecipes[0].title)).not.toBeInTheDocument();
+    });
+  });
+  test("navigates to update page when update button is clicked", async () => {
+    const { getByTestId, getByText } = render(
+        <Router path="/updateRecipe/:id">
+          <div data-testid="updatePage">Update recipe</div>
+        </Router>
+    
+    );
+    fireEvent.click(getByText("Update recipe"));
+
+    await waitFor(() => {
+      expect(getByTestId("updatePage")).toBeInTheDocument();
     });
   });
 });
