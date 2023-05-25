@@ -1,39 +1,68 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
 import Recipes from "../components/Recipes";
-import { Button } from "@mui/material";
+import { getRecipes, deleteRecipe } from "../services/Recipes";
+import { render, screen, waitFor, prettyDOM } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
 
-
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    getRecipes: () => Promise.resolve({ value: [{id: "1" , title: "test",  image: "image"}] }),
-  })
-);
-
-
-describe("Recipes", () => {
-  
-  
-  test("renders Recipes component", () => {
-    const {container} = render(<Recipes />);
-    console.log(container.innerHTML);
+jest.mock("../services/Recipes");
+describe("<Recipes />", () => {
+  const mockRecipes = [
+    { id: 1, title: "Recipe 1", images: "/path/to/image1.jpg" },
+    { id: 2, title: "Recipe 2", images: "/path/to/image2.jpg" },
+  ];
+  beforeEach(() => {
+    getRecipes.mockImplementation(() => Promise.resolve(mockRecipes));
+    deleteRecipe.mockImplementation((id) => Promise.resolve(id));
+  });
+  it("renders fetched recipes", async () => {
+    const { container } = render(
+      <Router>
+        <Recipes />
+      </Router>
+    );
+    expect(getRecipes).toBeCalled();
+    // Wait for recipes to be fetched and state to update
+    await waitFor(() => {
+      mockRecipes.forEach((recipe) => {
+        expect(screen.getByText(recipe.title)).toBeInTheDocument();
+        const { getAllByRole } = render(<Recipes elements={mockRecipes} />);
+        const listItems = getAllByRole("listitem");
+        expect(listItems.length).toBe(2);
+      });
     });
-    render(<Recipes />);
+    // Print out the inner HTML of the rendered component
+    console.log(container.innerHTML);
+  });
+  it("renders Recipes component", () => {
+    const { container } = render(<Recipes />);
+    console.log(`Aqui el container HTML: ${container.innerHTML}`);
     expect(screen.getByText("Our Recipes:")).toBeInTheDocument();
   });
 
-  test("renders Recipes and fetch data", async () => {
-    await render(<Recipes />);
-    const recipeList = await screen.findByText("test");
-    expect(recipeList).toBeInTheDocument();
+  it("deletes a recipe when delete button is clicked", async () => {
+    const { container } = render(
+      <Router>
+        <Recipes />
+      </Router>
+    );
+    expect(getRecipes).toBeCalled();
+    // Wait for recipes to be fetched and state to update
+    await waitFor(() => {
+      mockRecipes.forEach((recipe) => {
+        expect(screen.getByText(recipe.title)).toBeInTheDocument();
+      });
+    });
+    // Print out the inner HTML of the rendered component
+    console.log(container.innerHTML);
+    // Click on the delete button
+    const deleteButton = screen.getAllByText("Delete Recipe")[0];
+    deleteButton.click();
+    // Wait for the delete request to be sent
+    await waitFor(() => {
+      expect(deleteRecipe).toBeCalled();
+    });
+    // Wait for the recipe to be removed from the DOM
+    await waitFor(() => {
+      expect(screen.queryByText(mockRecipes[0].title)).not.toBeInTheDocument();
+    });
   });
-
-  test("renders button with correct label", () => {
-    const label = "Delete";
-    render(<Button>{label}</Button>);
-  });
-  test("renders button with correct label", () => {
-    const label = "Update";
-    render(<Button>{label}</Button>);
-  });
-
+});

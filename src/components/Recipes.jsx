@@ -70,7 +70,9 @@ function Recipes() {
     try {
       const data = await getRecipes();
       setRecipes(data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const handleDeleteRecipe = async (id) => {
@@ -87,7 +89,7 @@ function Recipes() {
   return (
     <div>
       <PageTitle>Our Recipes: </PageTitle>
-      <RecipeList data-testid="recipeList">
+      <RecipeList data-testid="recipeList" >
         {recipes.map((recipe) => {
           return (
             <Card
@@ -105,7 +107,7 @@ function Recipes() {
                 "&:hover": { boxShadow: "5px 5px 10px #6a6969" },
               }}
             >
-              <RecipeItem data-testid="recipeItem" key={recipe.id}>
+              <RecipeItem  key={recipe.id}>
                 <CardMedia>
                   <img id="image" src={recipe.images} alt={recipe.title}></img>
                 </CardMedia>
