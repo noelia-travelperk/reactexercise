@@ -121,11 +121,11 @@ export default function RecipeDetails() {
       <Title>{id ? "Update Recipe" : "Create Recipe"}</Title>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label>Title:</Label>
+          <Label name="title">Title</Label>
           <Input name="title" value={recipes.title} onChange={handleChange} />
         </FormGroup>
         <FormGroup>
-          <Label name= 'ingredients'>Ingredients:</Label>
+          <Label name= 'ingredients'>Ingredients</Label>
           <Input
             name="ingredients"
             value={recipes.ingredients}
@@ -133,7 +133,7 @@ export default function RecipeDetails() {
           />
         </FormGroup>
         <FormGroup>
-          <Label name= 'servings'>Servings:</Label>
+          <Label name= 'servings'>Servings</Label>
           <Input
             name="servings"
             value={recipes.servings}
@@ -141,11 +141,11 @@ export default function RecipeDetails() {
           />
         </FormGroup>
         <FormGroup>
-          <Label text= 'images'>Images:</Label>
+          <Label text= 'images'>Images</Label>
           <Input name="images" value={recipes.images} onChange={handleChange} />
         </FormGroup>
         <FormGroup>
-          <Label name= 'instructions'>Instructions:</Label>
+          <Label name= 'instructions'>Instructions</Label>
           <RecipeInstructions
             name="instructions"
             value={recipes.instructions}
