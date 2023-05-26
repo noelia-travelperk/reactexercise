@@ -8,13 +8,6 @@ import userEvent from '@testing-library/user-event'
 jest.mock("../services/Recipes");
 
 describe("Recipe Form", () => {
-  const mockRecipes = [
-    { id: 1, title: "Recipe 1", images: "/path/to/image1.jpg" },
-    { id: 2, title: "Recipe 2", images: "/path/to/image2.jpg" },
-  ];
-  beforeEach(() => {
-    createRecipe.mockImplementation(() => Promise.resolve(mockRecipes));
-  });
 
   it("renders the create recipe form and the create recipe button", () => {
     render(<RecipeDetails />);
