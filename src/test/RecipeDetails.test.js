@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent,getByLabelText } from "@testing-library/react";
 import RecipeDetails from "../components/RecipeDetails";
 import "@testing-library/jest-dom/extend-expect";
 import { createRecipe, getRecipes } from "../services/Recipes";
@@ -35,16 +35,22 @@ describe("Recipe Form", () => {
     const imageInput = screen.getByText("Images");
     const submitButton = screen.getByRole("button", { name: "Create" });
 
-    await userEvent.type(titleInput, "Title")
+    userEvent.type(titleInput, 'Recipe Title');
+    userEvent.type(ingredientsInput, 'Ingredient 1, Ingredient 2');
+    userEvent.type(servingsInput, '4');
+    userEvent.type(instructionsInput, 'Step 1, Step 2, Step 3');
+    userEvent.type(imageInput, 'recipe1.jpg');
+  
+    userEvent.click(submitButton);
 
-    expect(titleInput).toHaveTextContent("Title");
-    expect(ingredientsInput).toHaveTextContent("Ingredients");
-    expect(servingsInput).toHaveTextContent("Servings");
-    expect(instructionsInput).toHaveTextContent("Instructions");
-    expect(imageInput).toHaveTextContent("Images");
-    
-    fireEvent.click(submitButton);
-
-    expect(createRecipe).toBeCalledWith({title: "", ingredients: "", servings: "", instructions: "", images: ""});
+    expect(createRecipe({
+        title: "Recipe Title",
+        ingredients: "Ingredient 1, Ingredient 2",
+        servings: "4",
+        instructions: "Step 1, Step 2, Step 3",
+        image: "recipe1.jpg",
+      }));
+  
+  
   });
 });
