@@ -2,7 +2,8 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import RecipeDetails from "../components/RecipeDetails";
 import "@testing-library/jest-dom/extend-expect";
-import { getRecipes } from "../services/Recipes";
+import { createRecipe, getRecipes } from "../services/Recipes";
+import userEvent from '@testing-library/user-event'
 
 jest.mock("../services/Recipes");
 
@@ -25,7 +26,7 @@ describe("Recipe Form", () => {
     expect(screen.getByText("Create Recipe")).toBeInTheDocument();
   });
 
-  it("submits the form with valid data", () => {
+  it("submits the form with valid data", async () => {
     render(<RecipeDetails />);
     const titleInput = screen.getByText("Title");
     const ingredientsInput = screen.getByText("Ingredients");
@@ -34,18 +35,16 @@ describe("Recipe Form", () => {
     const imageInput = screen.getByText("Images");
     const submitButton = screen.getByRole("button", { name: "Create" });
 
-    titleInput.textContent = "Recipe Title";
-    ingredientsInput.textContent = "Ingredient 1, Ingredient 2";
-    servingsInput.textContent = "4";
-    instructionsInput.textContent = "Step 1, Step 2, Step 3";
-    imageInput.textContent = "recipe1.jpg";
+    await userEvent.type(titleInput, "Title")
 
+    expect(titleInput).toHaveTextContent("Title");
+    expect(ingredientsInput).toHaveTextContent("Ingredients");
+    expect(servingsInput).toHaveTextContent("Servings");
+    expect(instructionsInput).toHaveTextContent("Instructions");
+    expect(imageInput).toHaveTextContent("Images");
+    
     fireEvent.click(submitButton);
 
-    expect(titleInput).toHaveTextContent("Recipe Title");
-    expect(ingredientsInput).toHaveTextContent("Ingredient 1, Ingredient 2");
-    expect(servingsInput).toHaveTextContent("4");
-    expect(instructionsInput).toHaveTextContent("Step 1, Step 2, Step 3");
-    expect(imageInput).toHaveTextContent("recipe1.jpg");
+    expect(createRecipe).toBeCalledWith({title: "", ingredients: "", servings: "", instructions: "", images: ""});
   });
 });

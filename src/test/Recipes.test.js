@@ -20,7 +20,7 @@ describe("<Recipes />", () => {
       </Router>
     );
     expect(getRecipes).toBeCalled();
-    // Wait for recipes to be fetched and state to update
+
     await waitFor(() => {
       mockRecipes.forEach((recipe) => {
         expect(screen.getByText(recipe.title)).toBeInTheDocument();
@@ -29,12 +29,10 @@ describe("<Recipes />", () => {
         expect(listItems.length).toBe(2);
       });
     });
-    // Print out the inner HTML of the rendered component
-    console.log(container.innerHTML);
+  
   });
   it("renders Recipes component", () => {
     const { container } = render(<Recipes />);
-    console.log(`Aqui el container HTML: ${container.innerHTML}`);
     expect(screen.getByText("Our Recipes:")).toBeInTheDocument();
   });
 
@@ -45,22 +43,20 @@ describe("<Recipes />", () => {
       </Router>
     );
     expect(getRecipes).toBeCalled();
-    // Wait for recipes to be fetched and state to update
+
     await waitFor(() => {
       mockRecipes.forEach((recipe) => {
         expect(screen.getByText(recipe.title)).toBeInTheDocument();
       });
     });
-    // Print out the inner HTML of the rendered component
-    console.log(container.innerHTML);
-    // Click on the delete button
+
     const deleteButton = screen.getAllByText("Delete Recipe")[0];
     deleteButton.click();
-    // Wait for the delete request to be sent
+
     await waitFor(() => {
       expect(deleteRecipe).toBeCalled();
     });
-    // Wait for the recipe to be removed from the DOM
+ 
     await waitFor(() => {
       expect(screen.queryByText(mockRecipes[0].title)).not.toBeInTheDocument();
     });
