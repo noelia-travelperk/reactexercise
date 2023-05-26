@@ -13,6 +13,7 @@ describe("Recipe Form", () => {
   });
 
   it("renders the create recipe form and the create recipe button", () => {
+    createRecipe.mockImplementation(() => Promise.resolve());
     render(<RecipeDetails />);
     expect(screen.getByText("Title")).toBeInTheDocument();
     expect(screen.getByText("Ingredients")).toBeInTheDocument();
