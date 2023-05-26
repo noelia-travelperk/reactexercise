@@ -8,6 +8,9 @@ import userEvent from '@testing-library/user-event'
 jest.mock("../services/Recipes");
 
 describe("Recipe Form", () => {
+  beforeEach(() => {
+    createRecipe.mockClear();
+  });
 
   it("renders the create recipe form and the create recipe button", () => {
     render(<RecipeDetails />);
