@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent,getByLabelText } from "@testing-library/react";
 import RecipeDetails from "../components/RecipeDetails";
 import "@testing-library/jest-dom/extend-expect";
-import { createRecipe, getRecipes } from "../services/Recipes";
+import { createRecipe } from "../services/Recipes";
 import userEvent from '@testing-library/user-event'
 
 jest.mock("../services/Recipes");
@@ -13,7 +13,7 @@ describe("Recipe Form", () => {
     { id: 2, title: "Recipe 2", images: "/path/to/image2.jpg" },
   ];
   beforeEach(() => {
-    getRecipes.mockImplementation(() => Promise.resolve(mockRecipes));
+    createRecipe.mockImplementation(() => Promise.resolve(mockRecipes));
   });
 
   it("renders the create recipe form and the create recipe button", () => {
@@ -41,6 +41,7 @@ describe("Recipe Form", () => {
     userEvent.type(instructionsInput, 'Step 1, Step 2, Step 3');
     userEvent.type(imageInput, 'recipe1.jpg');
   
+
     userEvent.click(submitButton);
 
     expect(createRecipe({
