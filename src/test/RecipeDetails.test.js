@@ -9,7 +9,6 @@ jest.mock("../services/Recipes");
 
 describe("Recipe Form", () => {
   beforeEach(() => {
-    createRecipe.mockClear();
     createRecipe.mockImplementation(() => Promise.resolve());
   });
 
